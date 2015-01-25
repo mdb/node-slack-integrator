@@ -1,6 +1,6 @@
 {
   "name": "slack-integrator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Express-based starter kit for creating Slack integrations",
   "main": "integration.js",
   "scripts": {
