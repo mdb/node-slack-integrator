@@ -6,7 +6,7 @@ A very simple Express-based server for creating Slack integrations.
 
 ## How to use
 
-1. Log into your Slack and configure a slash command integration that posts to `<your-integration.com>/integration` when a Slack user enters `/some command`.
+1. Log into your Slack and configure a slash command integration that posts to `<your-integration-host.com>/integration` when a Slack user enters `/some command`.
 
 2. Deploy a `node-slack-integrator` instance to `<your-integration-host.com>`. Your `node-slack-integrator` instance should be instantiated with a `payload` method & a `hookPath` property.
 
