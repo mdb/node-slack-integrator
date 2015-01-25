@@ -43,6 +43,6 @@ new Integrator({
 });
 ```
 
-Running `node slack_integration` runs an Express app at port 3000, or theat the value specified in an optional `PORT` environment variable.
+Running `node slack_integration` runs an Express app at port 3000. Port 3000 can be overridden via a `PORT` environment variable.
 
 The slack integration instance's `/integration` endpoint can be used to receive slash command-prompted POST requests from Slack.
