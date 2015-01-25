@@ -1,11 +1,12 @@
 var express = require('express'),
+    request = require('request'),
     bodyParser = require('body-parser');
 
 function Integrator(config) {
-  this.app = express();
-  this.port = process.env.PORT || 3000;
-  this.handler = config.handler;
+  var port = process.env.PORT || 3000,
+      hookUrl = 'https://hooks.slack.com/services/' + config.hookPath;
 
+  this.app = express();
   this.app.use(bodyParser.urlencoded({ extended: true }));
 
   // test route
@@ -13,7 +14,7 @@ function Integrator(config) {
     res.status(200).send('Hello world!');
   });
 
-  this.app.post('/integration', this.handler);
+  this.app.post('/integration', handleReq);
 
   // error handler
   this.app.use(function (err, req, res, next) {
@@ -21,9 +22,38 @@ function Integrator(config) {
     res.status(400).send(err.message);
   });
 
-  this.app.listen(this.port, function () {
-    console.log('Integration service listening on port ' + this.port);
+  this.app.listen(port, function () {
+    console.log('Integration service listening on port ' + port);
   });
+
+  function handleReq(req, res, next) {
+    var payload = config.payload(req, res);
+
+    sendPayload(payload, function (error, status, body) {
+      if (error) {
+        return next(error);
+      } else if (status !== 200) {
+        return next(new Error('Incoming WebHook: ' + status + ' ' + body));
+      } else {
+        return res
+                .status(200)
+                .send(payload)
+                .end();
+      }
+    });
+  }
+
+  function sendPayload(payload, callback) {
+    request({
+      uri: hookUrl,
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }, function (error, response, body) {
+      if (error) { return callback(error); }
+
+      callback(null, response.statusCode, body);
+    });
+  }
 }
 
 module.exports = Integrator;
