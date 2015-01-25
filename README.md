@@ -41,4 +41,8 @@ new Integrator({
   // https://hooks.slack.com/services/<YOUR_HOOK_PATH>
   hookPath: "the path to your Slack instance's hook endpoint"
 });
+
+Running `node slack_integration` runs an Express app at port 3000, or theat the value specified in an optional `PORT` environment variable.
+
+The slack integration instance's `/integration` endpoint can be used to receive slash command-prompted POST requests from Slack.
 ```
