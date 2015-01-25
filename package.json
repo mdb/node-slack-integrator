@@ -1,0 +1,25 @@
+{
+  "name": "slack-integrator",
+  "version": "0.0.1",
+  "description": "Starter kit for creating Slack integrations",
+  "main": "app.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "slack",
+    "slackbot",
+    "slack integration"
+  ],
+  "author": "Mike Ball",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.x.x",
+    "express": "^4.x.x",
+    "request": "^2.51.0"
+  },
+  "devDependencies": {
+    "mocha": "1.14.x",
+    "supertest": "0.15.x"
+  }
+}
