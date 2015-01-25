@@ -22,11 +22,12 @@ var Integrator = require('slack-integrator');
 
 new Integrator({
   // a 'payload' method to generate a Slack-formatted payload object
-  // receives the request Slack issues to your integration in
-  // response to a user's `/command`
+  // this method receives the request Slack issues to your integration
+  //in response to a user's `/command`
   payload: function(request) {
     // this should return the payload object containing the
     // data you wish to display in Slack
+    // see Slack documentation regarding its format
 
     // example:
     return {
