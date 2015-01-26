@@ -23,19 +23,20 @@ var Integrator = require('slack-integrator');
 new Integrator({
   // a 'payload' method to generate a Slack-formatted payload object
   // this method receives the request Slack issues to your integration
-  //in response to a user's `/command`
-  payload: function(request) {
+  // in response to a user's `/command`, as well as a callback called
+  // with the Slack-formatted payload object
+  payload: function(request, callback) {
     // this should return the payload object containing the
     // data you wish to display in Slack
     // see Slack documentation regarding its format
 
     // example:
-    return {
+    callback({
       username: 'my bot',
       text: 'some text'
       channel: request.body.channel_id;
       icon_emoji: ':ghost:';
-    };
+    });
   },
 
   // https://hooks.slack.com/services/<YOUR_HOOK_PATH>

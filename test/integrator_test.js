@@ -4,10 +4,10 @@ var assert = require('assert'),
     Integrator = require('../integrator'),
     inst = (function () {
       return new Integrator({
-        payload: function (req, res) {
-          return {
+        payload: function (req, callback) {
+          callback({
             some: 'payload'
-          };
+          });
         },
         hookPath: 'foo'
       });
