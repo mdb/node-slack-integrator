@@ -36,7 +36,7 @@ function Integrator(config) {
         } else {
           return res
                   .status(200)
-                  .send(payload)
+                  .send((config.debug ? payload : ''))
                   .end();
         }
       });

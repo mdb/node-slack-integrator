@@ -9,7 +9,8 @@ var assert = require('assert'),
             some: 'payload'
           });
         },
-        hookPath: 'foo'
+        hookPath: 'foo',
+        debug: true
       });
     })();
 
