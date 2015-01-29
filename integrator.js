@@ -8,6 +8,7 @@ function Integrator(config) {
 
   this.app = express();
   this.app.use(bodyParser.urlencoded({ extended: true }));
+  this.app.use(bodyParser.json());
 
   // test route
   this.app.get('/', function (req, res) {

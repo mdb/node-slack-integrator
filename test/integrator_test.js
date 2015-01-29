@@ -5,8 +5,11 @@ var assert = require('assert'),
     inst = (function () {
       return new Integrator({
         payload: function (req, callback) {
+          var text = req.body && req.body.text ? req.body.text : 'default';
+
           callback({
-            some: 'payload'
+            some: 'payload',
+            text: text
           });
         },
         hookPath: 'foo',
@@ -26,21 +29,42 @@ describe('POST /integration', function() {
   describe('when the post to the slack integration endpoint succeeds', function () {
     var scope = nock('https://hooks.slack.com')
                   .post('/services/foo', {
-                    some: 'payload'
+                    some: 'payload',
+                    text: 'default'
                   })
                   .reply(200);
 
-    it('returns 200 and includes the payload as its response body', function(done) {
+    it('returns 200', function(done) {
       request(inst.app)
         .post('/integration')
-        .expect(200, {some: 'payload'}, done);
+        .expect(200, done);
+    });
+
+    describe('when a post is performed with a JSON body', function () {
+      var scope = nock('https://hooks.slack.com')
+                    .post('/services/foo', {
+                      some: 'payload',
+                      text: 'some text'
+                    })
+                    .reply(200);
+
+      it('can properly parse the JSON', function (done) {
+        request(inst.app)
+          .post('/integration')
+          .send({text: 'some text'})
+          .expect(200, {
+            some: 'payload',
+            text: 'some text'
+          }, done);
+      });
     });
   });
 
   describe('when the post to the slack integration endpoint fails', function () {
     var scope = nock('https://hooks.slack.com')
                   .post('/services/foo', {
-                    some: 'payload'
+                    some: 'payload',
+                    text: 'default'
                   })
                   .reply(400);
 
