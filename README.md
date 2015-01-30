@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mdb/node-slack-integrator.svg?branch=master)](https://travis-ci.org/mdb/node-slack-integrator)
+
 # node-slack-integrator
 
 A very simple Express-based server for creating Slack integrations.
