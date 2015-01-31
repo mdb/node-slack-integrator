@@ -29,18 +29,10 @@ function Integrator(config) {
 
   function handleReq(req, res, next) {
     config.payload(req, function (payload) {
-      sendPayload(payload, function (error, status, body) {
-        if (error) {
-          return next(error);
-        } else if (status !== 200) {
-          return next(new Error('Incoming WebHook: ' + status + ' ' + body));
-        } else {
-          return res
-                  .status(200)
-                  .send((config.debug ? payload : ''))
-                  .end();
-        }
-      });
+      return res
+              .status(200)
+              .json(payload)
+              .end();
     });
   }
 
