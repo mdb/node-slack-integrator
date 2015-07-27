@@ -32,7 +32,7 @@ function Integrator(config) {
       sendPayload(payload, function (error, status, body) {
         if (error) {
           return next(error);
-        } else if (status !== 200) {
+        } else if (status >= 400) {
           return next(new Error('Incoming WebHook: ' + status + ' ' + body));
         } else {
           return res
