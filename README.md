@@ -35,9 +35,9 @@ new Integrator({
     // example:
     callback({
       username: 'my bot',
-      text: 'some text'
-      channel: request.body.channel_id;
-      icon_emoji: ':ghost:';
+      text: 'some text',
+      channel: request.body.channel_id,
+      icon_emoji: ':ghost:'
     });
   },
 
