@@ -19,9 +19,9 @@
   "author": "Mike Ball",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.x.x",
-    "express": "^4.x.x",
-    "request": "^2.51.0"
+    "body-parser": "1.14.2",
+    "express": "4.13.4",
+    "request": "2.69.0"
   },
   "devDependencies": {
     "mocha": "2.4.4",
