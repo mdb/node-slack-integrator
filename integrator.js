@@ -3,7 +3,8 @@ var express = require('express'),
     bodyParser = require('body-parser');
 
 function Integrator(config) {
-  var port = process.env.PORT || 3000,
+  var port = process.env.PORT || config.port || 3000,
+      token = config.token,
       hookUrl = 'https://hooks.slack.com/services/' + config.hookPath;
 
   this.app = express();
@@ -28,6 +29,10 @@ function Integrator(config) {
   });
 
   function handleReq(req, res, next) {
+    if (token && req.body && req.body.token !== token) {
+      return responseWithCode(403, res);
+    }
+
     config.payload(req, function (payload) {
       sendPayload(payload, function (error, status, body) {
         if (error) {
@@ -35,13 +40,19 @@ function Integrator(config) {
         } else if (status >= 400) {
           return next(new Error('Incoming WebHook: ' + status + ' ' + body));
         } else {
-          return res
-                  .status(200)
-                  .send((config.debug ? payload : ''))
-                  .end();
+          return responseWithCode(200, res, payload);
         }
       });
     });
+  }
+
+  function responseWithCode(code, res, payload) {
+    payload = payload || '';
+
+    return res
+            .status(code)
+            .send((config.debug ? payload : ''))
+            .end();
   }
 
   function sendPayload(payload, callback) {
