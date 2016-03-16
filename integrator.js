@@ -30,7 +30,7 @@ function Integrator(config) {
 
   function handleReq(req, res, next) {
     if (token && req.body && req.body.token !== token) {
-      return responseWithCode(403, res);
+      return responseWithCode(401, res);
     }
 
     config.payload(req, function (payload) {

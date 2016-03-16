@@ -50,21 +50,21 @@ describe('POST /integration', function() {
 
   describe('when the integrator instance has been instantiated with a Slack token', function () {
     describe('when the request has no token', function () {
-      it('returns 403', function(done) {
+      it('returns 401', function(done) {
         request(instWithToken.app)
           .post('/integration')
-          .expect(403, done);
+          .expect(401, done);
       });
     });
 
     describe('when the request has a different token than that declared on the integration instance', function () {
-      it('returns 403', function(done) {
+      it('returns 401', function(done) {
         request(instWithToken.app)
           .post('/integration')
           .send({
             token: '456'
           })
-          .expect(403, done);
+          .expect(401, done);
       });
     });
 
