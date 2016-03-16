@@ -45,7 +45,7 @@ new Integrator({
   token: 'the token provided by your Slack instance',
 
   // https://hooks.slack.com/services/<YOUR_HOOK_PATH>
-  hookPath: 'the path to your Slack instance's hook endpoint'
+  hookPath: "the path to your Slack instance's hook endpoint"
 });
 ```
 
