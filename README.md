@@ -41,11 +41,14 @@ new Integrator({
     });
   },
 
+  // optional; if set, this ensures against requests from un-authorized Slacks
+  token: 'the token provided by your Slack instance',
+
   // https://hooks.slack.com/services/<YOUR_HOOK_PATH>
-  hookPath: "the path to your Slack instance's hook endpoint"
+  hookPath: 'the path to your Slack instance's hook endpoint'
 });
 ```
 
-Running `node slack_integration.js` runs an Express app at port 3000. Port 3000 can be overridden via a `PORT` environment variable.
+Running `node slack_integration.js` runs an Express app at port 3000. Port 3000 can be overridden via a `PORT` environment variable, or by a `port` declared on the options object passed to your integrator during instantiation.
 
 The slack integration instance's `/integration` endpoint can be used to receive slash command-prompted POST requests from Slack.
