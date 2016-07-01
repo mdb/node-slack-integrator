@@ -37,27 +37,27 @@ var assert = require('assert'),
         .reply(statusCode);
     };
 
-describe('GET /', function() {
-  it('returns "Hello world!"', function(done) {
+describe('GET /', () => {
+  it('returns "Hello world!"', (done) => {
     request(inst.app)
       .get('/')
       .expect(200, 'Hello world!', done);
   });
 });
 
-describe('POST /integration', function() {
+describe('POST /integration', () => {
   var scope = mockPost();
 
-  describe('when the integrator instance has been instantiated with a Slack token', function () {
-    describe('when the request has no token', function () {
-      it('returns 401', function(done) {
+  describe('when the integrator instance has been instantiated with a Slack token', () => {
+    describe('when the request has no token', () => {
+      it('returns 401', (done) => {
         request(instWithToken.app)
           .post('/integration')
           .expect(401, done);
       });
     });
 
-    describe('when the request has a different token than that declared on the integration instance', function () {
+    describe('when the request has a different token than that declared on the integration instance', () => {
       it('returns 401', function(done) {
         request(instWithToken.app)
           .post('/integration')
@@ -68,7 +68,7 @@ describe('POST /integration', function() {
       });
     });
 
-    describe('when the request has the token declared on the integration instance', function () {
+    describe('when the request has the token declared on the integration instance', () => {
       it('returns 200', function(done) {
         request(instWithToken.app)
           .post('/integration')
@@ -80,19 +80,19 @@ describe('POST /integration', function() {
     });
   });
 
-  describe('when the post to the slack integration endpoint succeeds', function () {
+  describe('when the post to the slack integration endpoint succeeds', () => {
     var scope = mockPost();
 
-    it('returns 200', function(done) {
+    it('returns 200', (done) => {
       request(inst.app)
         .post('/integration')
         .expect(200, done);
     });
 
-    describe('when a post is performed with a JSON body', function () {
+    describe('when a post is performed with a JSON body', () => {
       var scope = mockPost('some text');
 
-      it('can properly parse the JSON', function (done) {
+      it('can properly parse the JSON', (done) => {
         request(inst.app)
           .post('/integration')
           .send({text: 'some text'})
@@ -104,10 +104,10 @@ describe('POST /integration', function() {
     });
   });
 
-  describe('when the post to the slack integration endpoint fails', function () {
+  describe('when the post to the slack integration endpoint fails', () => {
     var scope = mockPost('default', 400);
 
-    it('returns 400', function(done) {
+    it('returns 400', (done) => {
       request(inst.app)
         .post('/integration')
         .expect(400, done);
