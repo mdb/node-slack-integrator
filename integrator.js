@@ -7,7 +7,9 @@ class Integrator {
     this.config = Object.assign({
       token: process.env.SLACK_TOKEN,
       port: process.env.PORT || 3000,
-      hookPath: undefined
+      hookPath: undefined,
+      callback: undefined,
+      debug: false
     }, config);
 
     this.config.hookUrl = 'https://hooks.slack.com/services/' + config.hookPath;
